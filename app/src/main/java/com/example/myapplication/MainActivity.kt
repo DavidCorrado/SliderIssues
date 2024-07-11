@@ -77,13 +77,43 @@ class MainActivity : ComponentActivity() {
             MyApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-                        var sliderValue by remember { mutableFloatStateOf(0f) }
                         Text(text = "Hello World")
                         Text(text = "Hello World")
                         Text(text = "Hello World")
                         Text(text = "Hello World")
                         Text(text = "Hello World")
-                        Row {
+                        Column {
+                            Text(text = "Slider with hidden liveRegion")
+                            var sliderValue by remember { mutableFloatStateOf(0f) }
+
+                            WellSlider(
+                                value = sliderValue,
+                                valueRange = 0f..4f,
+                                stepSize = 1f,
+                                labelFormatter = listOf("David", "Corrado", "Jessica", "Benson", "Skylar"),
+                                onValueChange = {
+                                    sliderValue = it
+                                }
+                            )
+                        }
+                        Column {
+                            Text(text = "Slider with progress and label")
+                            var sliderValue by remember { mutableFloatStateOf(0f) }
+
+                            WellSlider(
+                                value = sliderValue,
+                                valueRange = 0f..4f,
+                                stepSize = 1f,
+                                labelFormatter = listOf("David", "Corrado", "Jessica", "Benson", "Skylar"),
+                                onValueChange = {
+                                    sliderValue = it
+                                }
+                            )
+                        }
+                        Column {
+                            Text(text = "Slider with custom progress")
+                            var sliderValue by remember { mutableFloatStateOf(0f) }
+
                             WellSlider(
                                 value = sliderValue,
                                 valueRange = 0f..4f,
