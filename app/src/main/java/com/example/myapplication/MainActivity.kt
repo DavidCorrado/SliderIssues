@@ -49,6 +49,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -151,12 +152,8 @@ fun WellSlider(
             labelFormatter.getOrNull(value.toInt()).orEmpty()
         )
     }
-    Text(
-        selectedLabel,
-        modifier = Modifier.padding(8.dp).clearAndSetSemantics {
-            contentDescription = selectedLabel
-            liveRegion = LiveRegionMode.Polite }
-    )
+    // LocalView.current.announceForAccessibility(selectedLabel)
+
     val thumb: @Composable (SliderState) -> Unit = {
         Label(
             label = {
@@ -250,7 +247,6 @@ private fun Modifier.sliderSemantics2(
     return semantics {
         if (!enabled) disabled()
         setProgress(
-            label = "Label",
             action = { targetValue ->
                 var newValue = targetValue.coerceIn(
                     state.valueRange.start,
@@ -298,7 +294,7 @@ private fun Modifier.sliderSemantics2(
         state.value,
         state.valueRange.start..state.valueRange.endInclusive,
         state.steps
-    ).semantics { contentDescription = "Test" }
+    )
 }
 
 @Composable
